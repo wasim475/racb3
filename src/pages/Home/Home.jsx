@@ -27,8 +27,8 @@ const Home = () => {
         {showArticleData ? (
           <ShowArticles />
         ) : (
-          <h2 className="text-3xl font-bold text-center mb-4 text-red-500">
-            Articles are currently hidden by Admin
+          <h2 className="text-2xl font-bold text-center mb-4 bangla mt-20 text-blue-400">
+            সঙ্গতকারণে আর্টিকেলগুলো হাইড করে রাখা হয়েছে। 
           </h2>
         )}
       </section>

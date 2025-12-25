@@ -36,7 +36,7 @@ const SingleArticle = () => {
       showArticleData 
       ?
       <>
-      <div className='sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-50 text-gray-600'>
+      <div className='sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600'>
         <h1 className="flex items-center gap-x-1 text-xl ml-3">
           {" "}
           <Link to="/">
@@ -93,7 +93,7 @@ const SingleArticle = () => {
       </div>
       </>
       :
-      <h1 className='text-2xl bangla text-center'>আপাতত আর্টিকেলটি হাইড করা আছে...</h1>
+      <h1 className='text-2xl bangla text-center mt-20'>আপাতত আর্টিকেলটি হাইড করা আছে...</h1>
     }
       
     </>

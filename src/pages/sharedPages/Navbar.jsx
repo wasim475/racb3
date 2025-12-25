@@ -68,11 +68,10 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Navbar Center */}
-    
-
-      {/* Navbar End */}
+     <div>
       {!user ? <Login /> : <Avatar />}
+
+     </div>
     </div>
   );
 };
