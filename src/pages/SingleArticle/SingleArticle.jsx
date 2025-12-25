@@ -36,7 +36,7 @@ const SingleArticle = () => {
       showArticleData 
       ?
       <>
-      <div className='fixed top-14 left-4 bg-white shadow-md rounded-md px-3 py-2 z-50 text-gray-600 block width-full'>
+      <div className='sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-50 text-gray-600'>
         <h1 className="flex items-center gap-x-1 text-xl ml-3">
           {" "}
           <Link to="/">
