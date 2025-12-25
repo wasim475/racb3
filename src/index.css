@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@100..900&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+.bangla {
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.hero {
+  background: linear-gradient(180deg,#274690,#0B3D91);
+}
+
+
