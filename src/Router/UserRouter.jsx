@@ -1,10 +1,10 @@
 import { useContext } from "react";
 
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Auth } from '../provide/AuthProvide';
 
 
-const Protected = ({children}) => {
+const UserRouter = ({children}) => {
     const {user}= useContext(Auth)
     // const location = useLocation()
     // if(loading){
@@ -14,12 +14,12 @@ const Protected = ({children}) => {
     // </div>
     // }
 
-    
-    if(user.role ==='admin'){
+    console.log(user.role)
+    if(user){
         return children;
     }
     return <Navigate to='/' />
     // return <Navigate to='/login' state={{from:location}} replace='true' />
 };
 
-export default Protected;
+export default UserRouter;

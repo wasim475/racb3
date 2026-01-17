@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Auth } from "../../provide/AuthProvide";
+// import { Auth } from "../../provide/AuthProvide";
 import { useNavigate, useParams } from "react-router-dom";
+import { Auth } from '../../../../provide/AuthProvide';
 
-const CreateArticle = () => {
+const WriteNote = () => {
   const { id } = useParams();
   const isEdit = Boolean(id);
   const [title, setTitle] = useState("");
@@ -13,13 +14,14 @@ const CreateArticle = () => {
   const [audioLink, setAudioLink] = useState("");
   const { user } = useContext(Auth);
   const author = user ? user.name : "Anonymous";
+  const ownerId = user.id
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isEdit) {
       axios
-        .get(`https://racb3-server.vercel.app/api/v1/articles/articles/${id}`)
+        .get(`https://racb3-server.vercel.app/api/v1/note/get-all-notes/${id}`)
         .then((res) => {
           setTitle(res.data.title);
           setContent(res.data.content);
@@ -29,38 +31,43 @@ const CreateArticle = () => {
     }
   }, [id, isEdit]);
 
-  console.log(title,pdfLink);
+  // console.log(ownerId);
 
   const handlePublish = async () => {
-    const articleData = { author, title, content, pdfLink,audioLink };
-    const editArticleData = { title, content, id, pdfLink, audioLink };
+    const noteData = { author, title, content, pdfLink,audioLink,ownerId};
+    const editNoteData = { title, content, id, pdfLink, audioLink };
 
     if (isEdit) {
       const response = await axios.put(
-        `https://racb3-server.vercel.app/api/v1/articles/update-article/${id}`,
-        editArticleData
+        `https://racb3-server.vercel.app/api/v1/note/update-note/${id}`,
+        editNoteData
       );
+
+      console.log(response)
       if(response.data.success){
-        toast.success("Article updated successfully");
+        toast.success("note updated successfully");
         setTitle("");
         setContent("");
-        navigate(`/article/${id}`);
+        navigate(`/notes/${id}`);
       }
     } else {
       const response = await axios.post(
-        "https://racb3-server.vercel.app/api/v1/articles/article",
-        articleData
+        "https://racb3-server.vercel.app/api/v1/note/write-note",
+        noteData
       );
 
       setTimeout(() => {
-      navigate(`/article/${response.data._id}`);
+      navigate(`/notes/${response.data._id}`);
     }, 2000);
 
       console.log(response)
+      if(response.data.success){
+        toast.success(response.data.success);
+        setTitle("");
+        setContent("");
+      }
 
-      toast.success("Article published successfully");
-      setTitle("");
-      setContent("");
+     
     }
     
   };
@@ -70,7 +77,7 @@ const CreateArticle = () => {
       {/* Title Input */}
       <input
         type="text"
-        placeholder="Article Title"
+        placeholder="Title"
         className="input input-bordered w-full text-xl font-semibold"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -100,7 +107,7 @@ const CreateArticle = () => {
       <div>
         {/* Markdown Editor */}
         <textarea
-          className="textarea textarea-bordered h-[500px] w-full"
+          className="textarea textarea-bordered h-[300px] w-full"
           placeholder={`প্রয়োজনে নিচের Markdown দিয়ে লিখুন...
             Bold: **important**
             Italic: *note*
@@ -122,10 +129,10 @@ const CreateArticle = () => {
 
       {/* Save Button */}
       <button className="btn btn-primary" onClick={handlePublish}>
-        {isEdit ? "Update Article" : "Publish Article"}
+        {isEdit ? "Update note" : "Post Note"}
       </button>
     </div>
   );
 };
 
-export default CreateArticle;
+export default WriteNote;

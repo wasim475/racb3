@@ -5,12 +5,16 @@ import { toZonedTime } from "date-fns-tz";
 import { FaHome } from "react-icons/fa";
 import { GrEdit } from "react-icons/gr";
 import { FaFilePdf } from "react-icons/fa6";
+import { VscPlay } from "react-icons/vsc";
 import {  useContext } from 'react';
 import { Auth } from '../../provide/AuthProvide';
 import { Data } from '../../provide/DataProvider';
+import axios from 'axios';
+import AudioPlayer from '../utility/AudioPlayer';
 
 const SingleArticle = () => {
   const article = useLoaderData();
+
 
   const{user} = useContext(Auth)
   const {showArticleData}= useContext(Data)
@@ -28,6 +32,9 @@ const SingleArticle = () => {
     navigate(`/dashboard/write-article/${id}`);
   };
 
+  
+
+  
   
 
   return (
@@ -73,12 +80,21 @@ const SingleArticle = () => {
               )
               :
                 article.pdfLink &&
-              (
+                <>
+              
                 <Link to={article?.pdfLink}  className="flex items-center gap-x-1 ml-4 text-blue-600 font-medium" target="_blank" rel="noopener noreferrer">
                  <FaFilePdf/> Read PDF
                 </Link>
-              )
+                
+              
+              </>
             }
+            {
+              article.audioPath &&
+            <AudioPlayer audioLink= {article?.audioPath} />
+            }
+
+
           </div>
 
         </div>

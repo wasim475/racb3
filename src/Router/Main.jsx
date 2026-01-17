@@ -7,13 +7,23 @@ import SingleArticle from "../pages/SingleArticle/SingleArticle";
 import Dashboard from "../pages/DashBoard/Dashboard";
 import Protected from "./Protected";
 import Announcement from "../pages/DashBoard/dashboardPage/Announcement";
-import ControlArticle from '../pages/utility/ControlArticle';
+import ControlArticle from "../pages/utility/ControlArticle";
+import ErrorPage from "../pages/utility/ErrorPage";
+import MyNote from "../pages/userInterFace/pages/myNotes/MyNote";
+import UserRouter from "./UserRouter";
+import WriteNote from "../pages/userInterFace/pages/myNotes/WriteNotes";
+import AllNotes from "../pages/userInterFace/pages/AllNotes/AllNotes";
+import FAQ from "../pages/userInterFace/pages/FAQ/FAQ";
+import SingleNote from "../pages/userInterFace/pages/AllNotes/SingleNote";
+import UserImage from '../pages/userInterFace/pages/userImage/UserImage';
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <div>Something went wrong!</div>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -45,13 +55,60 @@ const router = createBrowserRouter([
           },
         ],
       },
-
+      {
+        path: "/notes",
+        element: <AllNotes />,
+      },
+      {
+        path: "/my-notes",
+        element: (
+          <UserRouter>
+            <MyNote />
+          </UserRouter>
+        ),
+      },
+      {
+        path: "/write-note",
+        element: (
+          <UserRouter>
+            {" "}
+            <WriteNote />{" "}
+          </UserRouter>
+        ),
+      },
+      {
+        path: "/write-note/:id",
+        element: (
+          <UserRouter>
+            {" "}
+            <WriteNote />{" "}
+          </UserRouter>
+        ),
+      },
+      {
+        path: "/get-image-url",
+        element: <UserImage />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
+      },
       {
         path: "/article/:id",
         element: <SingleArticle />,
         loader: async ({ params }) => {
           const res = await axios.get(
             `https://racb3-server.vercel.app/api/v1/articles/articles/${params.id}`
+          );
+          return res.data;
+        },
+      },
+      {
+        path: "/notes/:id",
+        element: <SingleNote />,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `https://racb3-server.vercel.app/api/v1/note/notes/${params.id}`
           );
           return res.data;
         },

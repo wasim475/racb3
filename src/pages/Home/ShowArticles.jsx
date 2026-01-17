@@ -5,6 +5,8 @@ import { RiDeleteBackFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { Auth } from '../../provide/AuthProvide';
 import { Data } from '../../provide/DataProvider';
+import { motion } from "motion/react"
+import Loading from '../utility/Loading';
 
 const ShowArticles = () => {
   const {user} = useContext(Auth);
@@ -21,6 +23,10 @@ const ShowArticles = () => {
 
     fetchData();
   }, []);
+
+  if(articles.length ===0){
+  return <Loading/>
+}
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -53,12 +59,19 @@ const ShowArticles = () => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {articles?.map((article) => (
-        <div
+        <motion.div
           key={article._id}
+                initial={{ y: 10 }}
+                animate={{ y: 0 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9,  rotate: -1 , transition:5}}
+                    
+                
+          
           className="border rounded-lg p-2 bg-base-100 flex justify-around"
         >
            {
-            user && (
+            user?.role==="admin" && (
               <button onDoubleClick={() => handleDelete(article._id)}>
                 <RiDeleteBackFill className="text-red-500 text-xl" />
               </button>
@@ -79,7 +92,7 @@ const ShowArticles = () => {
 
           
          
-        </div>
+        </motion.div>
       ))}
     </div>
   );

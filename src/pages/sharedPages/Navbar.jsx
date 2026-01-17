@@ -2,22 +2,25 @@ import { useContext } from "react";
 // import Avatar from './Login/Avatar';
 // import Login from './Login/Login';
 // import { DataState } from '../Provider/DataProvider';
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Auth } from "../../provide/AuthProvide";
 import Login from "../login/Login";
 import Avatar from "../login/Avatar";
-import logo from "../../assets/racLogo.png";
-import { FaHome } from "react-icons/fa";
+import { FaRegNoteSticky } from "react-icons/fa6";
+import { FaUserEdit, FaWhatsapp, FaQuestionCircle } from "react-icons/fa";
+import Reordering from '../utility/Reordering';
+import Sidebar from '../utility/Sidebar';
 
 const Navbar = () => {
   const { user } = useContext(Auth);
+   
   // console.log(user);
 
   return (
     <div className="navbar bg-base-100 shadow-sm flex justify-between">
       {/* Navbar Start */}
-      <div className="navbar-start">
-        <div className="dropdown">
+      <div className="navbar-start w-14">
+        {/* <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -56,11 +59,11 @@ const Navbar = () => {
               <a>About Admin</a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <Link to="/" className="btn btn-ghost text-xs bangla font-normal">
-        <span className='font-extrabold text-2xl flex items-center relative'><FaHome/>Home
+        <span className='font-extrabold text-2xl flex items-center relative'>
         
-        <span className='text-sm absolute right-0 -top-0.5 font-bold text-red-400'>RAC</span>
+        <span className='text-sm  font-bold text-red-400'> <Reordering/> </span>
         </span>
 
           {/* <img src={logo} alt="Logo" className="h-7  object-contain" /> */}
@@ -68,9 +71,12 @@ const Navbar = () => {
         </Link>
       </div>
 
-     <div>
-      {!user ? <Login /> : <Avatar />}
+     
 
+     <div className='flex justify-between items-center px-4 gap-2'>
+      {!user && <Login />}
+
+      <Sidebar/>
      </div>
     </div>
   );
