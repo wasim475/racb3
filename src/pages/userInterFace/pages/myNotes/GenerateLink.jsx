@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { CopyButton } from "../../utility/Copy";
-import { Auth } from '../../../../provide/AuthProvide';
-import { Data } from '../../../../provide/DataProvider';
 
 
-const UserImage = () => {
+
+const GeneratedILink = () => {
     const {loading, setLoading}= useContext(Data)
   const [image, setImage] = useState(null);
   const [imageLink, setImageLink] = useState(null);
@@ -93,4 +91,4 @@ const UserImage = () => {
   );
 };
 
-export default UserImage;
+export default GeneratedILink;

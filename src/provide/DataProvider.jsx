@@ -60,7 +60,9 @@ const DataProvider = ({children}) => {
         setAnnouncement,
         publishAnnouncement,
         notes,
-        loading
+        setAllNotes,
+        loading,
+        setLoading
     }
   return (
     <Data.Provider value={authInfo}>

@@ -10,11 +10,11 @@ const NoteCard = ({ notes }) => {
     <>
       {notes?.map((note) => (
         <Link  key={note?._id} to={`/notes/${note?._id}`}>
-          <div className="card border-2 w-44 h-40 shadow-sm overflow-hidden">
+          <div className="card border-2 w-44 h-40  rounded-2xl p-0.5 shadow-sm active:scale-[0.98] transition overflow-hidden">
             <div className="card-body relative">
               <h2 className="card-title text-xs">{note?.title}</h2>
               <p className="text-cyan-500 text-xs mb-0.5 flex items-center gap-0.5"> <IoPerson/> {note.author}</p>
-              <p className='text-sm'>
+              <p className='text-xs'>
                 {note?.content}
               </p>
             </div>

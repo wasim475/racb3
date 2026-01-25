@@ -7,11 +7,19 @@ import { IoIosLogOut } from "react-icons/io";
 import { SiLibreofficewriter } from "react-icons/si";
 import { CiImageOn } from "react-icons/ci";
 import { closeDrawer } from "./closeDrawer";
+import { CgProfile } from "react-icons/cg";
 import { MdOutlineDashboard } from "react-icons/md";
+import Avatar from '../login/Avatar';
 
 const Sidebar = () => {
   const { user, logout } = useContext(Auth);
   const navItems = [
+     {
+      name: <CgProfile/>,
+      text: "My Profile",
+      path: "/profile",
+      auth: true,
+    },
     {
       name: <MdOutlineDashboard />,
       text: "Dashboard",
@@ -48,9 +56,11 @@ const Sidebar = () => {
           {/* Page content here */}
           <label
             htmlFor="my-drawer-5"
-            className="drawer-button btn btn-primary fixed top-0.5 right-2 z-50"
+            className={`drawer-button ${user ? "":"btn btn-primary"}  fixed top-0.5 right-2 z-50`}
           >
-            <FaBars />
+            {user ?  <Avatar/> : <FaBars />}
+            
+           
           </label>
         </div>
         <div className="drawer-side">
@@ -59,8 +69,8 @@ const Sidebar = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <div className=" mt-20">
-            <ul className="flex flex-col gap-y-4 text-2xl bg-cyan-700 p-4 rounded-lg ">
+          <div className=" mt-20 z-50">
+            <ul className="flex flex-col gap-y-4 text-2xl bg-cyan-700 p-4 rounded-lg">
               {navItems.map((navitem) =>
                 navitem.auth && !user ? null : // admin check
                 navitem.admin &&
@@ -82,7 +92,7 @@ const Sidebar = () => {
                 ) : (
                   <button
                     key={navitem.text}
-                    onClick={navitem.action}
+                    onClick={()=>navitem.action(closeDrawer)}
                     className="flex items-center gap-2"
                   >
                     {navitem.name} {navitem.text}

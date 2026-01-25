@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div>
       <section className="py-4">
-        {!user && (
+        {!user?.role=== 'admin' && (
           <div className="flex justify-evenly items-center">
             <TbSpeakerphone className="text-xl text-orange-400" />
             <Marquee pauseOnHover={true} speed={25} gradient={false}>

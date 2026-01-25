@@ -13,11 +13,11 @@ const MyNote = () => {
       const res = await axios.get(
         `https://racb3-server.vercel.app/api/v1/note/get-all-notes?ownerId=${user.id}`
       );
-      console.log(res.data);
+      // console.log(res.data);
       setMyNotes(res.data);
     };
     fetchData();
-  }, []);
+  }, [user.id]);
 
   return (
     <div className="min-h-screen bg-gray-100 relative">
@@ -40,10 +40,10 @@ const MyNote = () => {
           </div>
         ) : (
           notes.map((note) => (
-            <Link to={`/notes/${note._id}`}>
+            <Link className='' to={`/notes/${note._id}`}>
               <div
                 key={note.id}
-                className="bg-white rounded-2xl p-4 shadow-sm active:scale-[0.98] transition"
+                className="bg-white rounded-2xl p-4 shadow-sm active:scale-[0.98] transition mb-2"
               >
                 <h2 className="font-semibold text-blue-950 mb-1">
                   {note.title}
@@ -67,8 +67,7 @@ const MyNote = () => {
         )}
       </main>
 
-      {/* Floating Action Button */}
-      <button className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-lg active:scale-95"></button>
+     
     </div>
   );
 };

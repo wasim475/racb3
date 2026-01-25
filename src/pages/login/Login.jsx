@@ -4,6 +4,8 @@ import { Auth } from "../../provide/AuthProvide";
 import { toast } from "react-toastify";
 import { BsEye } from "react-icons/bs";
 import { RiEyeCloseLine } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
+import GoogleLogin from '../utility/GoogleLogin';
 const Login = () => {
   const dialogRef = useRef(null);
   const { login } = useContext(Auth);
@@ -215,7 +217,12 @@ const Login = () => {
               Cancel
             </button>
           </div>
+
+           <div className='text-center'>
+          <GoogleLogin dialogRef={dialogRef}/>
+        </div>
         </form>
+       
       </dialog>
     </div>
   );

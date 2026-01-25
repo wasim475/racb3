@@ -9,5 +9,5 @@ export const CopyButton = ({ value }) => {
     toast.success("Image URL Copied.")
   };
 
-  return <button onClick={handleCopy} className=' text-3xl'><MdContentCopy/></button>;
+  return <button type='button' onClick={handleCopy} className=' text-3xl'><MdContentCopy/></button>;
 };

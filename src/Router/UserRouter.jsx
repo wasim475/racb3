@@ -14,7 +14,7 @@ const UserRouter = ({children}) => {
     // </div>
     // }
 
-    console.log(user.role)
+    // console.log(user.role)
     if(user){
         return children;
     }

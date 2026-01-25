@@ -1,8 +1,15 @@
 import { createContext, useState } from 'react'
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { GoogleAuthProvider, updateProfile , createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth"
+import app from './firebase.config';
+import axios from 'axios';
+
+
 export const Auth = createContext(null);
 const AuthProvide = ({children}) => {
+  const auth = getAuth(app);
+  const GoogleProvider = new GoogleAuthProvider();
     const [user, setUser] = useState(() => {
     const saved = localStorage.getItem("loggedUser");
     return saved ? JSON.parse(saved) : null;
@@ -13,8 +20,37 @@ const AuthProvide = ({children}) => {
     localStorage.setItem("loggedUser", JSON.stringify(userData));
   };
 
+  // গুগল লগিন
+  const googleLOgin= (dialogRef)=>{
+        signInWithPopup(auth, GoogleProvider)
+        .then(async (result)=>{
+            console.log(result.user);
+            if(result.user){
+               const userInfo={
+                fullName: result.user.displayName,
+                userName: result.user.email.split("@")[0],
+                email: result.user.email,
+                password:`rac3Student-${Math.floor(Math.random() * 10000)}`,
+                profilePic:result.user.photoURL
+               }
+               const res = await axios.post('https://racb3-server.vercel.app/api/v1/auth/google-login',userInfo)
+                if(res.data.user){
+                  login(res.data.user)
+                  toast.success("Login successfull.")
+                      dialogRef.current.close();
+                }
+                    
+                
+               
+                
+                //   Navigate(from,{replace:true});
+                console.log('user')
+            }
+        })
+    }
+
   // লগআউট
-  const logout = () => {
+  const logout = (closeDrawer) => {
     Swal.fire({
   title: "Are you sure?",
   // text: "You won't be able to revert this!",
@@ -28,6 +64,7 @@ const AuthProvide = ({children}) => {
     setUser(null);
     localStorage.removeItem("loggedUser");
     toast.success("Logout successfully.")
+    closeDrawer()
   }
 });
     
@@ -35,6 +72,7 @@ const AuthProvide = ({children}) => {
     const authInfo={
         user,
         login,
+        googleLOgin,
         logout
     }
   return (

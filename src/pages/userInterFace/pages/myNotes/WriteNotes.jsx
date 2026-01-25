@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 // import { Auth } from "../../provide/AuthProvide";
 import { useNavigate, useParams } from "react-router-dom";
 import { Auth } from '../../../../provide/AuthProvide';
+import NoteImageModal from '../../utility/NoteImageModal';
+import copy from 'copy-to-clipboard';
 
 const WriteNote = () => {
   const { id } = useParams();
@@ -43,7 +45,7 @@ const WriteNote = () => {
         editNoteData
       );
 
-      console.log(response)
+      // console.log(response)
       if(response.data.success){
         toast.success("note updated successfully");
         setTitle("");
@@ -51,18 +53,25 @@ const WriteNote = () => {
         navigate(`/notes/${id}`);
       }
     } else {
+      
       const response = await axios.post(
         "https://racb3-server.vercel.app/api/v1/note/write-note",
         noteData
       );
 
-      setTimeout(() => {
-      navigate(`/notes/${response.data._id}`);
-    }, 2000);
+      if(response.data.warn){
+        return toast.warn(response.data.warn)
+      }
 
       console.log(response)
+
+      setTimeout(() => {
+      navigate(`/notes/${response.data.note._id}`);
+    }, 2000);
+    
+      
       if(response.data.success){
-        toast.success(response.data.success);
+        toast.success("Your Note Posted successfully.");
         setTitle("");
         setContent("");
       }
@@ -71,6 +80,8 @@ const WriteNote = () => {
     }
     
   };
+
+   
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-4">
@@ -107,11 +118,12 @@ const WriteNote = () => {
       <div>
         {/* Markdown Editor */}
         <textarea
-          className="textarea textarea-bordered h-[300px] w-full"
+          className="textarea textarea-bordered h-64 w-full"
           placeholder={`প্রয়োজনে নিচের Markdown দিয়ে লিখুন...
             Bold: **important**
             Italic: *note*
             Image: ![alt](image_url)
+            link: [link name](url)
             `}
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -128,9 +140,15 @@ const WriteNote = () => {
       </div>
 
       {/* Save Button */}
+      <div>
+
       <button className="btn btn-primary" onClick={handlePublish}>
         {isEdit ? "Update note" : "Post Note"}
       </button>
+      
+        <NoteImageModal/>
+      
+      </div>
     </div>
   );
 };

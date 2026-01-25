@@ -1,12 +1,26 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import NoteCard from '../../utility/NoteCard'
 import { Data } from '../../../../provide/DataProvider'
 import Loading from '../../../utility/Loading'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 
 const AllNotes = () => {
-  const {notes, loading}= useContext(Data)
+  const [loading, setLoading]= useState(false)
+  const [notes, setNotes]=useState([])
+  useEffect(()=>{
+      const fetchData = async ()=>{
+          setLoading(true)
+            const res = await axios.get(
+          'https://racb3-server.vercel.app/api/v1/note/get-all-notes'
+        );
+        // console.log(typeof res.data[0].showData);
+        setNotes(res.data);
+        setLoading(false)
+        }
+        fetchData()
+    },[])
   if(loading){
     return <Loading/>
   }

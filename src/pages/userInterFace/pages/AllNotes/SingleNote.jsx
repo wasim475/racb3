@@ -26,9 +26,7 @@ const SingleNote = () => {
 
   const navigate = useNavigate()
 
-  const handleEdit = (id) => {
-    navigate(``);
-  };
+ 
   return (
     <>
           <div className="sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600">
@@ -51,9 +49,9 @@ const SingleNote = () => {
             <div className="flex items-center space-x-4  text-sm md:text-base">
               <span>
                 By{" "}
-                <span className="font-semibold text-violet-400">
+                <Link to={`/profile/${note?.ownerId}`} className="font-semibold text-violet-400">
                   {note.author}
-                </span>
+                </Link>
               </span>
               <span>•</span>
               <span>{formatDateTime(note.time)}</span>

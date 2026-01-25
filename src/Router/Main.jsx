@@ -16,6 +16,7 @@ import AllNotes from "../pages/userInterFace/pages/AllNotes/AllNotes";
 import FAQ from "../pages/userInterFace/pages/FAQ/FAQ";
 import SingleNote from "../pages/userInterFace/pages/AllNotes/SingleNote";
 import UserImage from '../pages/userInterFace/pages/userImage/UserImage';
+import ProfilePage from '../pages/userInterFace/pages/myProfile/MyProfile';
 
 
 
@@ -88,6 +89,20 @@ const router = createBrowserRouter([
       {
         path: "/get-image-url",
         element: <UserImage />,
+      },
+      {
+        path: "/profile",
+        element: <UserRouter><ProfilePage /></UserRouter>,
+      },
+      {
+        path: "/profile/:id",
+        element: <ProfilePage />,
+         loader: async ({ params }) => {
+          const res = await axios.get(
+            `https://racb3-server.vercel.app/api/v1/auth/users/${params.id}`
+          );
+          return res.data;
+        },
       },
       {
         path: "/faq",
