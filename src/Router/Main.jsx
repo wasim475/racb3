@@ -17,6 +17,7 @@ import FAQ from "../pages/userInterFace/pages/FAQ/FAQ";
 import SingleNote from "../pages/userInterFace/pages/AllNotes/SingleNote";
 import UserImage from '../pages/userInterFace/pages/userImage/UserImage';
 import ProfilePage from '../pages/userInterFace/pages/myProfile/MyProfile';
+import PrivacyPolicy from '../pages/sharedPages/PrivacyPolicy';
 
 
 
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         element: <FAQ />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy/>,
       },
       {
         path: "/article/:id",

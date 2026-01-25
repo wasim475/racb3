@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CreateArticleButton from "./CreateArticleButton";
 import ShowArticles from "./ShowArticles";
 import Marquee from "react-fast-marquee";
@@ -6,32 +6,37 @@ import { Auth } from "../../provide/AuthProvide";
 import ControlArticle from "../utility/ControlArticle";
 import { Data } from "../../provide/DataProvider";
 import { TbSpeakerphone } from "react-icons/tb";
+import HomeTab from './HomeTab';
+import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
-  const { user } = useContext(Auth);
-  const { showArticleData } = useContext(Data);
+  
+  
   const { publishAnnouncement } = useContext(Data);
   return (
     <div>
+      <Helmet>
+        <title>RAC -Fridge and ac course under sicip </title>
+        <meta name='description' content='Best ac and Refrigeration training Course'/>
+        <meta name='keywords' content='AC, AC course, fridge repair, technician, air condition, rac, fridge, fridge course'/>
+      </Helmet>
       <section className="py-4">
-        {!user?.role=== 'admin' && (
+        {(
           <div className="flex justify-evenly items-center">
-            <TbSpeakerphone className="text-xl text-orange-400" />
+            {
+              publishAnnouncement && <TbSpeakerphone className="text-xl text-orange-400" />
+            }
             <Marquee pauseOnHover={true} speed={25} gradient={false}>
               {publishAnnouncement}
             </Marquee>
           </div>
         )}
       </section>
+      {/* section -2 */}
       <section>
-        {showArticleData ? (
-          <ShowArticles />
-        ) : (
-          <h2 className="text-2xl font-bold text-center mb-4 bangla mt-20 text-blue-400">
-            সঙ্গতকারণে আর্টিকেলগুলো হাইড করে রাখা হয়েছে। 
-          </h2>
-        )}
+        <HomeTab/>
       </section>
+      
     </div>
   );
 };

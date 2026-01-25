@@ -39,7 +39,7 @@ const initialOrder = [
   { color: "#ff0088", label: "R" },
   { color: "#dd00ee", label: "A" },
   { color: "#9911ff", label: "C" },
-  { color: "#0d63f8", label: "3" },
+  { color: "#0d63f8", label: "4" },
 ]
 
 /**

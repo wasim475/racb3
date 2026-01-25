@@ -157,7 +157,7 @@ const Login = () => {
               <>
                 <input
             type="text"
-            placeholder="পুরো নাম লিখুন"
+            placeholder="পুরো নাম।"
             className="input input-bordered w-full my-2"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
@@ -166,7 +166,7 @@ const Login = () => {
 
                 <input
             type="text"
-            placeholder="একটি ইউজারনেম দিন"
+            placeholder="ইউজারনেম।"
             className="input input-bordered w-full my-2"
             value={usersName}
             onChange={(e) => setUsersName(e.target.value)}
@@ -175,7 +175,7 @@ const Login = () => {
 
           <input
             type="email"
-            placeholder="আপনার ইমেইল"
+            placeholder="ইমেইল"
             className="input input-bordered w-full my-2"
             value={userEmail}
             onChange={(e) => setEmail(e.target.value)}
@@ -184,7 +184,7 @@ const Login = () => {
             <div className='relative'>
                <input
             type={seePass? "text" : 'password'}
-            placeholder="পাসওয়ার্ড সেট করুন"
+            placeholder="পাসওয়ার্ড"
             className="input input-bordered w-full my-2"
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}

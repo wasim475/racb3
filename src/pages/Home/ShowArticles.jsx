@@ -1,30 +1,31 @@
 import axios from "axios";
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiDeleteBackFill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { Auth } from '../../provide/AuthProvide';
-import { Data } from '../../provide/DataProvider';
-import { motion } from "motion/react"
 import Loading from '../utility/Loading';
 
 const ShowArticles = () => {
   const {user} = useContext(Auth);
-  const {showData, setShowData} = useContext(Data);
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading]= useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       const res = await axios.get(
         `https://racb3-server.vercel.app/api/v1/articles/articles`
       );
+      setLoading(false)
       setArticles(res.data.reverse());
+     
     };
 
     fetchData();
   }, []);
 
-  if(articles.length ===0){
+  if(loading){
   return <Loading/>
 }
 
@@ -59,12 +60,12 @@ const ShowArticles = () => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {articles?.map((article) => (
-        <motion.div
+        <div
           key={article._id}
-                initial={{ y: 10 }}
-                animate={{ y: 0 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9,  rotate: -1 , transition:5}}
+                // initial={{ y: 10 }}
+                // animate={{ y: 0 }}
+                // whileHover={{ scale: 1.1 }}
+                // whileTap={{ scale: 0.9,  rotate: -1 , transition:5}}
                     
                 
           
@@ -92,7 +93,7 @@ const ShowArticles = () => {
 
           
          
-        </motion.div>
+        </div>
       ))}
     </div>
   );

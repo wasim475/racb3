@@ -26,7 +26,7 @@ const Sidebar = () => {
       path: "/dashboard",
       admin: true,
     },
-    { name: <FaRegNoteSticky />, text: "All Notes", path: "/notes" },
+    // { name: <FaRegNoteSticky />, text: "All Notes", path: "/notes" },
     {
       name: <SiLibreofficewriter />,
       text: "Write a Note",
@@ -40,7 +40,7 @@ const Sidebar = () => {
       auth: true,
     },
     { name: <FaUserEdit />, text: "My Notes", path: "/my-notes", auth: true },
-    { name: <FaQuestionCircle />, text: "FAQ", path: "/faq" },
+    // { name: <FaQuestionCircle />, text: "FAQ", path: "/faq" },
     {
       name: <FaWhatsapp />,
       text: "Group",
