@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Auth } from "../../provide/AuthProvide";
 
 const GoogleLogin = ({ dialogRef }) => {
-  const { googleLOgin } = useContext(Auth);
+  const { googleLOgin, loading } = useContext(Auth);
 
   return (
     <div className="bangla">
@@ -13,6 +13,7 @@ const GoogleLogin = ({ dialogRef }) => {
         <div className="flex-1 h-px bg-gray-300"></div>
       </div>
       <button
+      disabled={loading}
         type="button"
         onClick={() => googleLOgin(dialogRef)}
         className="btn hover:shadow-2xl border-[#293dbd]"
@@ -43,8 +44,10 @@ const GoogleLogin = ({ dialogRef }) => {
               d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
             ></path>
           </g>
-        </svg>
-        গুগল দিয়ে লগইন করুন।
+        </svg>{
+          loading ? <span className="loading loading-spinner text-secondary"></span> : 'গুগল দিয়ে লগইন করুন।'
+        }
+        
       </button>
     </div>
   );

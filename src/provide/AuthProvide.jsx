@@ -9,6 +9,7 @@ import axios from 'axios';
 export const Auth = createContext(null);
 const AuthProvide = ({children}) => {
   const auth = getAuth(app);
+  const [loading, setLoading]= useState(false)
   const GoogleProvider = new GoogleAuthProvider();
     const [user, setUser] = useState(() => {
     const saved = localStorage.getItem("loggedUser");
@@ -26,6 +27,7 @@ const AuthProvide = ({children}) => {
         .then(async (result)=>{
             console.log(result.user);
             if(result.user){
+              setLoading(true)
                const userInfo={
                 fullName: result.user.displayName,
                 userName: result.user.email.split("@")[0],
@@ -35,6 +37,7 @@ const AuthProvide = ({children}) => {
                }
                const res = await axios.post('https://racb3-server.vercel.app/api/v1/auth/google-login',userInfo)
                 if(res.data.user){
+                  setLoading(false)
                   login(res.data.user)
                   toast.success("Login successfull.")
                       dialogRef.current.close();
@@ -73,7 +76,8 @@ const AuthProvide = ({children}) => {
         user,
         login,
         googleLOgin,
-        logout
+        logout,
+        loading
     }
   return (
     <Auth.Provider value={authInfo}>

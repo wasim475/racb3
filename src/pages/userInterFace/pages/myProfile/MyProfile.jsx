@@ -59,7 +59,7 @@ const ProfilePage = () => {
         {/* Profile Section */}
         <div className="flex flex-col items-center p-6 border-b text-gray-500">
           <img
-            src={userInfo?.profilePic || user?.profilePic }
+            src={userInfo?.profilePic || user?.profilePic || "https://i.ibb.co/RpxVCL40/d82c9c5a2621.png" }
             alt="Profile"
             className="w-20 h-20 rounded-full border-4 border-blue-500 relative"
           />
