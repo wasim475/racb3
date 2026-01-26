@@ -3,9 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 // import { Auth } from "../../provide/AuthProvide";
 import { useNavigate, useParams } from "react-router-dom";
-import { Auth } from '../../../../provide/AuthProvide';
-import NoteImageModal from '../../utility/NoteImageModal';
-import copy from 'copy-to-clipboard';
+import { Auth } from "../../../../provide/AuthProvide";
+import NoteImageModal from "../../utility/NoteImageModal";
+import copy from "copy-to-clipboard";
+import NoteVideoModal from "../../utility/NoteVideoModal";
 
 const WriteNote = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const WriteNote = () => {
   const [audioLink, setAudioLink] = useState("");
   const { user } = useContext(Auth);
   const author = user ? user.name : "Anonymous";
-  const ownerId = user.id
+  const ownerId = user.id;
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const WriteNote = () => {
           setTitle(res.data.title);
           setContent(res.data.content);
           setPdfLink(res.data.pdfLink);
-          setAudioLink(res.data.audioPath)
+          setAudioLink(res.data.audioPath);
         });
     }
   }, [id, isEdit]);
@@ -36,52 +37,45 @@ const WriteNote = () => {
   // console.log(ownerId);
 
   const handlePublish = async () => {
-    const noteData = { author, title, content, pdfLink,audioLink,ownerId};
+    const noteData = { author, title, content, pdfLink, audioLink, ownerId };
     const editNoteData = { title, content, id, pdfLink, audioLink };
 
     if (isEdit) {
       const response = await axios.put(
         `https://racb3-server.vercel.app/api/v1/note/update-note/${id}`,
-        editNoteData
+        editNoteData,
       );
 
       // console.log(response)
-      if(response.data.success){
+      if (response.data.success) {
         toast.success("note updated successfully");
         setTitle("");
         setContent("");
         navigate(`/notes/${id}`);
       }
     } else {
-      
       const response = await axios.post(
         "https://racb3-server.vercel.app/api/v1/note/write-note",
-        noteData
+        noteData,
       );
 
-      if(response.data.warn){
-        return toast.warn(response.data.warn)
+      if (response.data.warn) {
+        return toast.warn(response.data.warn);
       }
 
-      console.log(response)
+      console.log(response);
 
       setTimeout(() => {
-      navigate(`/notes/${response.data.note._id}`);
-    }, 2000);
-    
-      
-      if(response.data.success){
+        navigate(`/notes/${response.data.note._id}`);
+      }, 2000);
+
+      if (response.data.success) {
         toast.success("Your Note Posted successfully.");
         setTitle("");
         setContent("");
       }
-
-     
     }
-    
   };
-
-   
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-4">
@@ -93,27 +87,24 @@ const WriteNote = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      {isEdit &&
-      
-      <>
-       <input
-        type="text"
-        placeholder="PDF File Link(if you have)"
-        className="input input-bordered w-full text-xl font-semibold"
-        value={pdfLink}
-        onChange={(e) => setPdfLink(e.target.value)}
-      /> 
-      <input
-        type="text"
-        placeholder="Audio Link(if you have)"
-        className="input input-bordered w-full text-xl font-semibold"
-        value={audioLink}
-        onChange={(e) => setAudioLink(e.target.value)}
-      />
-
-      </>
-      }
-     
+      {isEdit && (
+        <>
+          <input
+            type="text"
+            placeholder="PDF File Link(if you have)"
+            className="input input-bordered w-full text-xl font-semibold"
+            value={pdfLink}
+            onChange={(e) => setPdfLink(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Audio Link(if you have)"
+            className="input input-bordered w-full text-xl font-semibold"
+            value={audioLink}
+            onChange={(e) => setAudioLink(e.target.value)}
+          />
+        </>
+      )}
 
       <div>
         {/* Markdown Editor */}
@@ -140,14 +131,16 @@ const WriteNote = () => {
       </div>
 
       {/* Save Button */}
-      <div>
+      <div  className='flex justify-between'>
+        <button className="btn btn-primary" onClick={handlePublish}>
+          {isEdit ? "Update note" : "Post Note"}
+        </button>
 
-      <button className="btn btn-primary" onClick={handlePublish}>
-        {isEdit ? "Update note" : "Post Note"}
-      </button>
-      
-        <NoteImageModal/>
-      
+        <div className='flex gap-x-5'>
+          <NoteImageModal />
+          <NoteVideoModal />
+        </div>
+
       </div>
     </div>
   );

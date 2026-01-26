@@ -9,7 +9,7 @@ import { VscPlay } from "react-icons/vsc";
 import {  useContext } from 'react';
 import { Auth } from '../../provide/AuthProvide';
 import { Data } from '../../provide/DataProvider';
-import axios from 'axios';
+import rehypeRaw from "rehype-raw";
 import AudioPlayer from '../utility/AudioPlayer';
 
 const SingleArticle = () => {
@@ -104,7 +104,7 @@ const SingleArticle = () => {
 
         {/* Content */}
         <article className="prose prose-lg md:prose-xl max-w-none whitespace-pre-wrap text-xl">
-          <ReactMarkdown>{article.content}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{article.content}</ReactMarkdown>
         </article>
       </div>
       </>
