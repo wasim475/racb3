@@ -6,6 +6,7 @@ import { toZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 import { FaHome } from "react-icons/fa";
 import { FaFilePdf } from "react-icons/fa6";
+import { RxTriangleRight } from "react-icons/rx";
 import rehypeRaw from "rehype-raw";
 import DelEdit from "../../../utility/DelEdit";
 
@@ -27,15 +28,17 @@ const SingleNote = () => {
   return (
     <>
       <div className="sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600">
-        <h1 className="flex items-center gap-x-1 ml-3">
-          {" "}
-          <Link to="/">
+        <h1 className="flex items-center gap-x-1 ml-3 whitespace-nowrap overflow-hidden">
+          <Link className='flex items-center' to="/">
             <FaHome className="mr-1" />
-          </Link>{" "}
-          <span className="text-red-500">
-            &gt; <Link to={"/notes"}>Notes</Link> &gt;{" "}
-          </span>{" "}
-          <span className="">{note.title}</span>{" "}
+            <span><RxTriangleRight/></span>
+          </Link>
+
+          <span className=" whitespace-nowrap flex items-center">
+             <Link to={"/notes"}> <span className='text-blue-900 font-bold italic'>Notes</span> </Link> <RxTriangleRight/>
+          </span>
+
+          <span className="truncate max-w-72">{note.title}</span>
         </h1>
       </div>
       <div className="max-w-4xl mx-auto py-12 px-4 md:px-0 space-y-8 bangla">

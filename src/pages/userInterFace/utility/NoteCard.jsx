@@ -1,6 +1,8 @@
 import { MdOutlineStarOutline } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { IoPerson } from "react-icons/io5";
+import ReactMarkdown from 'react-markdown';
+// import rehypeRaw from 'rehype-raw';
 
 const NoteCard = ({ notes }) => {
   
@@ -14,9 +16,11 @@ const NoteCard = ({ notes }) => {
             <div className="card-body relative">
               <h2 className="card-title text-xs">{note?.title}</h2>
               <p className="text-cyan-500 text-xs mb-0.5 flex items-center gap-0.5"> <IoPerson/> {note.author}</p>
-              <p className='text-xs'>
+              {/* <ReactMarkdown rehypePlugins={[rehypeRaw]} skipHtml={false}> */}
+                <p className='text-xs'>
                 {note?.content}
               </p>
+              {/* </ReactMarkdown> */}
             </div>
             <button className="absolute top-2 right-2">
               <MdOutlineStarOutline className="text-orange-400 text-2xl" />
