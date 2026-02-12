@@ -85,7 +85,7 @@ const Login = () => {
   return (
     <div className="navbar-end">
       <button
-        className="btn btn-info bangla"
+        className="btn btn-primary bangla"
         onClick={() => dialogRef.current.showModal()}
       >
         লগইন

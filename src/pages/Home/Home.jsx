@@ -7,20 +7,22 @@ import ControlArticle from "../utility/ControlArticle";
 import { Data } from "../../provide/DataProvider";
 import { TbSpeakerphone } from "react-icons/tb";
 import HomeTab from './HomeTab';
+import wave from '../../assets/wave.svg'
 import { Helmet } from 'react-helmet-async';
+import Hero from './Hero Section/Hero';
 
 const Home = () => {
   
   
   const { publishAnnouncement } = useContext(Data);
   return (
-    <div>
+    <div className=''>
       <Helmet>
         <title>RAC -Fridge and ac course under sicip </title>
-        <meta name='description' content='Best ac and Refrigeration training Course'/>
-        <meta name='keywords' content='AC, AC course, fridge repair, technician, air condition, rac, fridge, fridge course'/>
+        <meta name='description' content='Learn RAC in simple way.'/>
+        <meta name='keywords' content='AC, AC course, fridge repair, technician, air condition, rac, fridge, fridge course, learn rac'/>
       </Helmet>
-      <section className="py-4">
+      <section className="mt-16">
         {(
           <div className="flex justify-evenly items-center">
             {
@@ -33,8 +35,9 @@ const Home = () => {
         )}
       </section>
       {/* section -2 */}
-      <section>
-        <HomeTab/>
+      <section className='flex flex-col items-center justify-center relative min-h-[calc(100vh-116px)]'>
+        <Hero/>
+        <img className='absolute bottom-0 w-full' src={wave} alt="" />
       </section>
       
     </div>

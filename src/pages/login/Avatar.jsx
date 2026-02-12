@@ -17,13 +17,13 @@ const Avatar = () => {
           role="button"
           className="btn btn-ghost btn-circle avatar"
         >
-          <div className="w-10 rounded-full sticky ">
+          <div className="w-10 rounded-full sticky top-2">
             <img
               alt="Tailwind CSS Navbar component"
               src={user?.profilePic ? user.profilePic : "https://i.ibb.co/RpxVCL40/d82c9c5a2621.png"}
             />
             <div className='absolute -bottom-4 left-1/2 -translate-1/2 z-50'>
-              <RxTriangleDown className='text-xl text-gray-500'/>
+              <RxTriangleDown className='text-xl text-red-500'/>
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import { FaRegNoteSticky } from "react-icons/fa6";
 import { FaUserEdit, FaWhatsapp, FaQuestionCircle } from "react-icons/fa";
 import Reordering from '../utility/Reordering';
 import Sidebar from '../utility/Sidebar';
+import Search from '../utility/Search';
 
 const Navbar = () => {
   const { user } = useContext(Auth);
@@ -17,49 +18,10 @@ const Navbar = () => {
   // console.log(user);
 
   return (
-    <div className="navbar bg-base-100 shadow-sm flex justify-between">
+    <div className="navbar bg-base-100 shadow-sm flex justify-between fixed top-0 left-0  z-50">
       {/* Navbar Start */}
       <div className="navbar-start w-14">
-        {/* <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Photos</a>
-            </li>
-            <li>
-                  <a
-                    href="https://chat.whatsapp.com/LrRqT2YHODV51EJIYwvHfG"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className=" hover:underline"
-                  >
-                    WhatsApp Group
-                  </a>
-                </li>
-            <li>
-              <a>About Admin</a>
-            </li>
-          </ul>
-        </div> */}
+          {/* <Search/> */}
         <Link to="/" className="btn btn-ghost text-xs bangla font-normal">
         <span className='font-extrabold text-2xl flex items-center relative'>
         
@@ -71,9 +33,11 @@ const Navbar = () => {
         </Link>
       </div>
 
-     
+     <div className='fixed top-1 right-1/3 md:right-1/2'>
+      <Search/>
+     </div>
 
-     <div className='flex justify-between items-center px-4 gap-2'>
+     <div className='justify-between items-center px-4 gap-2 -mt-5'>
       {!user && <Login />}
 
       <Sidebar/>

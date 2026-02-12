@@ -4,8 +4,7 @@ import Navbar from './Navbar'
 
 const Dashboard = () => {
   return (
-    <div>
-        <section className='flex'>
+        <section className='flex mt-16'>
             <div className='w-12 px-2'>
                 <Navbar/>
 
@@ -16,7 +15,7 @@ const Dashboard = () => {
         
         </section>
     
-    </div>
+    
   )
 }
 

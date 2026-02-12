@@ -27,7 +27,7 @@ const SingleNote = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600">
+      <div className="sticky top-12 left-0 mb-5 bg-white shadow-md rounded-md px-3 py-2 z-50 text-gray-600">
         <h1 className="flex items-center gap-x-1 ml-3 whitespace-nowrap overflow-hidden">
           <Link className='flex items-center' to="/">
             <FaHome className="mr-1" />

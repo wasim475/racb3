@@ -15,7 +15,7 @@ const ShowArticles = () => {
     const fetchData = async () => {
       setLoading(true)
       const res = await axios.get(
-        `https://racb3-server.vercel.app/api/v1/articles/articles`
+        `https://racb3-server.vercel.app/api/v1/articles/articles?classType=Theory`
       );
       setLoading(false)
       setArticles(res.data.reverse());

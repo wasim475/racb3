@@ -32,7 +32,7 @@ const AllNotes = () => {
           <p className="font-medium">No notes yet</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 mt-16">
           <NoteCard notes={notes} />
         </div>
       )}

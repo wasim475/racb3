@@ -3,6 +3,7 @@ import { Data } from '../../provide/DataProvider';
 import AllNotes from '../userInterFace/pages/AllNotes/AllNotes';
 // import AllNotes from '../userInterFace/pages/AllNotes/AllNotes';
 import ShowArticles from './ShowArticles';
+import PracticalClasses from './PracticalClasses';
 
 
 const HomeTab = () => {
@@ -18,21 +19,21 @@ const HomeTab = () => {
           className={`flex-1 py-3 text-sm font-medium ${
             activeTab === "classes"
               ? "border-b-2 border-violet-500 text-violet-600"
-              : "text-gray-500 hover:text-blue-500"
+              : "text-gray-500 hover:text-violet-600"
           }`}
         >
-          All Classes
+          Theory Classes
         </button>
 
         <button
           onClick={() => setActiveTab("notes")}
           className={`flex-1 py-3 text-sm font-medium ${
             activeTab === "notes"
-              ? "border-b-2 border-blue-500 text-blue-600"
-              : "text-gray-500 hover:text-blue-500"
+              ? "border-b-2 border-blue-400 text-blue-400"
+              : "text-gray-500 hover:text-blue-400"
           }`}
         >
-          Notes
+          Practical Classes
         </button>
       </div>
 
@@ -57,7 +58,7 @@ const HomeTab = () => {
 
         {activeTab === "notes" && (
             <section>
-                <AllNotes />
+                <PracticalClasses />
             </section>
         )}
       </div>

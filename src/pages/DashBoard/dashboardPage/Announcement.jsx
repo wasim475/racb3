@@ -20,7 +20,7 @@ const Announcement = () => {
   };
 
   const handleDefaultAnnouncement = async () => {
-    const defaultAnnouncement = "RAC-BATCH-04 SICIP(BIOSEP)";
+    const defaultAnnouncement = "RAC-BATCH-04 SICIP(BEIOA)";
     const res = await axios.put(
       "https://racb3-server.vercel.app/api/v1/articles/announcement",
       { announcement: defaultAnnouncement }

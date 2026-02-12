@@ -11,6 +11,7 @@ const CreateArticle = () => {
   const [content, setContent] = useState("");
   const [pdfLink, setPdfLink] = useState("");
   const [audioLink, setAudioLink] = useState("");
+  const [classType, setClassType]= useState('Theory')
   const { user } = useContext(Auth);
   const author = user ? user.name : "Anonymous";
 
@@ -24,23 +25,23 @@ const CreateArticle = () => {
           setTitle(res.data.title);
           setContent(res.data.content);
           setPdfLink(res.data.pdfLink);
-          setAudioLink(res.data.audioPath)
+          setAudioLink(res.data.audioPath);
+          setClassType(res.data.classType);
         });
     }
   }, [id, isEdit]);
 
-  console.log(title,pdfLink);
 
   const handlePublish = async () => {
-    const articleData = { author, title, content, pdfLink,audioLink };
+    const articleData = { author, title, content, pdfLink, audioLink, classType };
     const editArticleData = { title, content, id, pdfLink, audioLink };
 
     if (isEdit) {
       const response = await axios.put(
         `https://racb3-server.vercel.app/api/v1/articles/update-article/${id}`,
-        editArticleData
+        editArticleData,
       );
-      if(response.data.success){
+      if (response.data.success) {
         toast.success("Article updated successfully");
         setTitle("");
         setContent("");
@@ -49,20 +50,17 @@ const CreateArticle = () => {
     } else {
       const response = await axios.post(
         "https://racb3-server.vercel.app/api/v1/articles/article",
-        articleData
+        articleData,
       );
 
       setTimeout(() => {
-      navigate(`/article/${response.data._id}`);
-    }, 2000);
-
-      console.log(response)
+        navigate(`/article/${response.data._id}`);
+      }, 2000);
 
       toast.success("Article published successfully");
       setTitle("");
       setContent("");
     }
-    
   };
 
   return (
@@ -75,27 +73,29 @@ const CreateArticle = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      {isEdit &&
-      
-      <>
-       <input
-        type="text"
-        placeholder="PDF File Link(if you have)"
-        className="input input-bordered w-full text-xl font-semibold"
-        value={pdfLink}
-        onChange={(e) => setPdfLink(e.target.value)}
-      /> 
-      <input
-        type="text"
-        placeholder="Audio Link(if you have)"
-        className="input input-bordered w-full text-xl font-semibold"
-        value={audioLink}
-        onChange={(e) => setAudioLink(e.target.value)}
-      />
-
-      </>
-      }
-     
+      <select onChange={(e)=>setClassType(e.target.value)} value={classType} className="select select-sm">
+        <option>Theory</option>
+        <option>Practical</option>
+        
+      </select>
+      {isEdit && (
+        <>
+          <input
+            type="text"
+            placeholder="PDF File Link(if you have)"
+            className="input input-bordered w-full text-xl font-semibold"
+            value={pdfLink}
+            onChange={(e) => setPdfLink(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Audio Link(if you have)"
+            className="input input-bordered w-full text-xl font-semibold"
+            value={audioLink}
+            onChange={(e) => setAudioLink(e.target.value)}
+          />
+        </>
+      )}
 
       <div>
         {/* Markdown Editor */}

@@ -18,6 +18,7 @@ import SingleNote from "../pages/userInterFace/pages/AllNotes/SingleNote";
 import UserImage from '../pages/userInterFace/pages/userImage/UserImage';
 import ProfilePage from '../pages/userInterFace/pages/myProfile/MyProfile';
 import PrivacyPolicy from '../pages/sharedPages/PrivacyPolicy';
+import Classes from '../pages/allClasses/Classes';
 
 
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             element: <ControlArticle />,
           },
         ],
+      },
+      {
+        path: "/classes",
+        element: <Classes/>,
       },
       {
         path: "/notes",

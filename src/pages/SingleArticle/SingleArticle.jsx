@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
@@ -6,7 +6,7 @@ import { FaHome } from "react-icons/fa";
 import { GrEdit } from "react-icons/gr";
 import { FaFilePdf } from "react-icons/fa6";
 import { VscPlay } from "react-icons/vsc";
-import {  useContext } from 'react';
+import {  useContext, useEffect } from 'react';
 import { Auth } from '../../provide/AuthProvide';
 import { Data } from '../../provide/DataProvider';
 import rehypeRaw from "rehype-raw";
@@ -14,6 +14,27 @@ import AudioPlayer from '../utility/AudioPlayer';
 
 const SingleArticle = () => {
   const article = useLoaderData();
+  const location = useLocation()
+
+  const scrollText = location.state?.scrollText
+
+  useEffect(() => {
+  if (!scrollText) return;
+
+  // সব element খুঁজে text match করবে
+  const elements = document.querySelectorAll("article *");
+
+  for (let el of elements) {
+    if (el.textContent.includes(scrollText)) {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+      el.style.color = "yellow";
+      break;
+    }
+  }
+}, [scrollText]);
 
 
   const{user} = useContext(Auth)
@@ -43,17 +64,22 @@ const SingleArticle = () => {
       showArticleData 
       ?
       <>
-      <div className='sticky top-0 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600'>
+      <div className='sticky top-14 left-0 bg-white shadow-md rounded-md px-3 py-2 z-40 text-gray-600'>
         <h1 className="flex items-center gap-x-1 text-xl ml-3">
           {" "}
           <Link to="/">
             <FaHome className="mr-1" />
           </Link>{" "}
+          {" "}
+          <span className="text-red-500">&gt;</span>{" "}
+          <Link to="/classes">
+            <span>All Classes</span>
+          </Link>{" "}
           <span className="text-red-500">&gt;</span>{" "}
           <span className="font-medium">{article.title}</span>{" "}
         </h1>
       </div>
-      <div className="max-w-4xl mx-auto py-12 px-4 md:px-0 space-y-8 bangla">
+      <div className="max-w-4xl mx-auto py-12 px-4 md:px-0 space-y-8 bangla mt-4">
         {/* Title */}
         <h1 className="text-2xl md:text-5xl font-extrabold mb-2">
           {article.title}
